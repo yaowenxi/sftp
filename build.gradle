@@ -21,7 +21,15 @@ configure(subprojects) {
     apply plugin: 'idea'
     apply plugin: 'org.springframework.boot'
 
-    sourceCompatibility = 1.8
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+        options.compilerArgs << "-parameters"
+    }
+
+    test.enabled = false
 
     repositories {
         mavenLocal()
