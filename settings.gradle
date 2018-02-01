@@ -1,2 +1,3 @@
 rootProject.name = 'sftp'
-
+include 'sftp-api'
+include 'sftp-common'

@@ -1,5 +1,6 @@
 buildscript {
     ext {
+        projectVersion = '1.0-SNAPSHOT'
         springBootVersion = '1.5.10.RELEASE'
     }
     repositories {
@@ -9,25 +10,40 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
-group 'cn.worthy'
-version '1.0-SNAPSHOT'
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenLocal()
-    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
-    mavenCentral()
+allprojects {
+    group = 'cn.worthy.sftp'
+    version = version
 }
 
-dependencies {
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compileOnly('org.projectlombok:lombok')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+configure(subprojects) {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        mavenCentral()
+    }
+
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-web')
+        compile('org.springframework.boot:spring-boot-starter')
+        compileOnly('org.projectlombok:lombok')
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+    }
+}
+
+subprojects {
+    task create {
+        doLast {
+            sourceSets*.java.srcDirs*.each { it.mkdirs() }
+            sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+        }
+    }
 }
 
 task wrapper(type: Wrapper) {
