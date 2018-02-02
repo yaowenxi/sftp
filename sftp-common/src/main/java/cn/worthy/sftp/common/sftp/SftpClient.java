@@ -14,7 +14,7 @@ public class SftpClient {
     private SftpConfig config;
 
     /**
-     * 上传pdf文件到FTP
+     * 上传文件到FTP
      */
     public boolean uploadToSftp(String filename, byte[] contents) {
         return SftpUtil.uploadFile(config.getHost(), config.getPort(), config.getUsername(), config.getPassword(), config.getFilePath(), filename, contents);
