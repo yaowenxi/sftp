@@ -66,6 +66,7 @@ public class SftpUtil {
             try {
                 log.info("***   传输文件到远程SFTP名称:" + filename + "   ***");
                 channelSftp.put(new ByteArrayInputStream(fileContents), filename);
+                result = true;
             } catch (Exception e) {
                 log.error("***   远程传输文件失败. " + e.toString() + "   ***");
             }
